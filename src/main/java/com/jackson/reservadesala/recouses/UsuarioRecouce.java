@@ -17,26 +17,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.jackson.reservadesala.domain.SalaC;
-import com.jackson.reservadesala.dto.SalaCDTO;
-import com.jackson.reservadesala.service.SalaCService;
+import com.jackson.reservadesala.domain.Usuario;
+import com.jackson.reservadesala.dto.UsuarioDTO;
+import com.jackson.reservadesala.service.UsuarioService;
 
 @RestController
-@RequestMapping(value="/resevasDaSalaC")
-public class SalaCRecouce {
+@RequestMapping(value="/usuario")
+public class UsuarioRecouce {
 	
 	@Autowired
-	private SalaCService service;
+	private UsuarioService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<SalaC> find(@PathVariable Integer id){
-		SalaC obj = service.find(id);
+	public ResponseEntity<Usuario> find(@PathVariable Integer id){
+		Usuario obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<?> insert(@RequestBody SalaCDTO objDto){
-		SalaC obj = service.fromDto(objDto);
+	public ResponseEntity<?> insert(@RequestBody UsuarioDTO objDto){
+		Usuario obj = service.fromDto(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -44,8 +44,8 @@ public class SalaCRecouce {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody SalaCDTO objDto, @PathVariable Integer id){
-		SalaC obj = service.fromDto(objDto);
+	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO objDto, @PathVariable Integer id){
+		Usuario obj = service.fromDto(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
@@ -59,20 +59,20 @@ public class SalaCRecouce {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<SalaCDTO>> findAll() {
-		List<SalaC> list = service.findAll();
-		List<SalaCDTO> listDto = list.stream().map(obj -> new SalaCDTO(obj)).collect(Collectors.toList());
+	public ResponseEntity<List<UsuarioDTO>> findAll() {
+		List<Usuario> list = service.findAll();
+		List<UsuarioDTO> listDto = list.stream().map(obj -> new UsuarioDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<SalaCDTO>> findPag(
+	public ResponseEntity<Page<UsuarioDTO>> findPag(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="orderBy", defaultValue="descricao") String orderBy,
+			@RequestParam(value="orderBy", defaultValue="nome") String orderBy,
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-		Page<SalaC> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<SalaCDTO> listDto = list.map(obj -> new SalaCDTO(obj));
+		Page<Usuario> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<UsuarioDTO> listDto = list.map(obj -> new UsuarioDTO(obj));
 		return ResponseEntity.ok().body(listDto);
 	}
 

@@ -19,10 +19,10 @@ public class SalaC implements Serializable{
 	private Integer id;
 	private String descricao;
 	
-	@JsonFormat(pattern="dd/MM/yyyy hh:mm")
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date dataDaReserva;
 	
-	@JsonFormat(pattern="dd/MM/yyyy hh:mm")
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date dataFinalDaReserva;
 	
 	private String nomeDoSolicitante;
