@@ -22,7 +22,7 @@ import com.jackson.reservadesala.dto.UsuarioDTO;
 import com.jackson.reservadesala.service.UsuarioService;
 
 @RestController
-@RequestMapping(value="/usuario")
+@RequestMapping(value="/usuarios")
 public class UsuarioRecouce {
 	
 	@Autowired
