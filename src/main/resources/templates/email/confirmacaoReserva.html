@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:remove="all">Order Confirmation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<h1>
+			Reserva Confirmada! 
+		</h1>
+		
+		<h2>
+			Reserva Confirmada, codigo da reserva:  <span th:text="${salaC.id}"> </span> 
+		</h2>
+		
+		<h2>
+			Reserva: <span th:text="${salaC.descricao}"></span>
+		</h2>
+			<p>
+			Data da reserva iniciar: <span
+				th:text="${#dates.format(salaC.dataDaReserva, 'dd/MM/yyyy hh:mm')}"></span>
+		</p>
+			<p>
+			Data da reserva final: <span
+				th:text="${#dates.format(salaC.dataFinalDaReserva, 'dd/MM/yyyy hh:mm')}"></span>
+		</p>
+		
+		<p>
+			Nome do Solicitante: <span
+				th:text="${salaC.nomeDoSolicitante}"></span>
+		</p>
+	</div>
+</body>
+</html>

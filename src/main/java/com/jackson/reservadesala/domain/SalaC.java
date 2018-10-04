@@ -1,6 +1,7 @@
-package com.jackson.reservadesala.domain;
+ package com.jackson.reservadesala.domain;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -19,10 +20,10 @@ public class SalaC implements Serializable{
 	private Integer id;
 	private String descricao;
 	
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm", timezone="America/Sao_Paulo")
 	private Date dataDaReserva;
 	
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm", timezone="America/Sao_Paulo")
 	private Date dataFinalDaReserva;
 	
 	private String nomeDoSolicitante;
@@ -139,6 +140,26 @@ public class SalaC implements Serializable{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		builder.append("SalaC Reserva: ");
+		builder.append(getId());
+		builder.append(", Atividade");
+		builder.append(getDescricao());
+		builder.append(", Data e Hora que começa Reserva: ");
+		builder.append(sdf.format(getDataDaReserva()));
+		builder.append(", Data e Hora que encerra Reserva: ");
+		builder.append(sdf.format(getDataFinalDaReserva()));
+		builder.append(", Nome do Solicitante: ");
+		builder.append(getNomeDoSolicitante());
+		builder.append("\nDetalhes:\n");
+		return builder.toString();
+	}
+	
+	
 
 	
 }

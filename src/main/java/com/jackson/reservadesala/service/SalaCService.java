@@ -20,6 +20,9 @@ public class SalaCService {
 	@Autowired
 	private SalaCRepository repo;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	public SalaC find(Integer id){
 		Optional <SalaC> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new com.jackson.reservadesala.service.exception.ObjectNotFoundException(
@@ -28,7 +31,9 @@ public class SalaCService {
 	
 	public SalaC insert(SalaC obj) {
 		obj.setId(null);
-		return repo.save(obj);
+		obj = repo.save(obj);
+		emailService.sendOrderConfirmationHtmlEmail(obj);
+		return obj;
 	}
 	
 	public SalaC update(SalaC obj) {

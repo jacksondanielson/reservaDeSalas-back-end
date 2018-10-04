@@ -21,11 +21,11 @@ public class SalaCDTO implements Serializable{
 	private String descricao;
 	
 	@NotEmpty(message="Preenchimento obrigatorio")
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm", timezone="America/Sao_Paulo")
 	private Date dataDaReserva;
 	
 	@NotEmpty(message="Preenchimento obrigatorio")
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm", timezone="America/Sao_Paulo")
 	private Date dataFinalDaReserva;
 	
 	@NotEmpty(message="Preenchimento obrigatorio")
