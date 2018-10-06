@@ -6,15 +6,20 @@ import java.util.Arrays;
 import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.jackson.reservadesala.domain.SalaC;
 import com.jackson.reservadesala.domain.Usuario;
+import com.jackson.reservadesala.domain.enums.Perfil;
 import com.jackson.reservadesala.repository.SalaCRepository;
 import com.jackson.reservadesala.repository.UsuarioRepository;
 
 @Service
 public class DBService {
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	@Autowired
 	private SalaCRepository salacRepository;
@@ -33,7 +38,10 @@ public class DBService {
 		SalaC res4 = new SalaC(null, "aula de anestesio", sdf.parse("18/09/2018 13:00"), sdf.parse("18/09/2018 15:00"), "alexandre", "84999885524", "jacksonalves31@gmail.com");
 		salacRepository.saveAll(Arrays.asList(res1,res2, res3,res4));
 		
-		Usuario user1 = new Usuario(null, "Jackson danielson", "84996000898", "jacksonalves@gmail.com");
-		usuarioRepository.saveAll(Arrays.asList(user1));
+		Usuario user1 = new Usuario(null, "Jackson danielson", "84996000898", "jacksonalves@gmail.com", pe.encode("123"));
+		Usuario user2 = new Usuario(null, "Danielson Alves", "84996000898", "jacksonalves31@gmail.com", pe.encode("123"));
+		user2.addPerfil(Perfil.ADMIN);
+		usuarioRepository.saveAll(Arrays.asList(user1,user2));
+		
 	}
 }
