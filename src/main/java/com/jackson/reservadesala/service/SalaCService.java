@@ -25,7 +25,7 @@ public class SalaCService {
 	
 	public SalaC find(Integer id){
 		Optional <SalaC> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new com.jackson.reservadesala.service.exception.ObjectNotFoundException(
+		return obj.orElseThrow(() -> new com.jackson.reservadesala.service.exception.ObjectNotFoudException(
 				"Objeto não encontrado! id: " + id + "Tipo: " + SalaC.class.getName()));
 	}
 	

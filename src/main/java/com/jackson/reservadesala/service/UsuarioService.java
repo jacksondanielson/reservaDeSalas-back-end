@@ -11,8 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.jackson.reservadesala.domain.Usuario;
+import com.jackson.reservadesala.domain.enums.Perfil;
 import com.jackson.reservadesala.dto.UsuarioDTO;
 import com.jackson.reservadesala.repository.UsuarioRepository;
+import com.jackson.reservadesala.security.UserSS;
+import com.jackson.reservadesala.service.exception.AuthorizationException;
+import com.jackson.reservadesala.service.exception.ObjectNotFoudException;
 
 
 @Service
@@ -25,8 +29,14 @@ public class UsuarioService {
 	private BCryptPasswordEncoder pe;
 	
 	public Usuario find(Integer id){
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado!");
+		}
+		
 		Optional <Usuario> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new com.jackson.reservadesala.service.exception.ObjectNotFoundException(
+		return obj.orElseThrow(() -> new ObjectNotFoudException(
 				"Objeto não encontrado! id: " + id + "Tipo: " + Usuario.class.getName()));
 	}
 	

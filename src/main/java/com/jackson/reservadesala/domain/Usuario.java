@@ -81,6 +81,7 @@ public class Usuario implements Serializable{
 		this.email = email;
 	}
 	
+	@JsonIgnore
 	public String getSenha() {
 		return senha;
 	}

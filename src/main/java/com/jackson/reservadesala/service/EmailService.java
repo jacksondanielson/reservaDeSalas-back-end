@@ -5,6 +5,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.mail.SimpleMailMessage;
 
 import com.jackson.reservadesala.domain.SalaC;
+import com.jackson.reservadesala.domain.Usuario;
 
 public interface EmailService {
 	
@@ -15,4 +16,6 @@ public interface EmailService {
 	void sendOrderConfirmationHtmlEmail(SalaC obj);
 	
 	void sendHtmlEmail(MimeMessage msg);
+	
+	void sendNewPasswordEmail(Usuario cliente, String newPass);
 }

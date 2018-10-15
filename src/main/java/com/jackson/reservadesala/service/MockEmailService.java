@@ -6,8 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.SimpleMailMessage;
 
-import com.jackson.reservadesala.domain.SalaC;
-
 public class MockEmailService extends AbstractEmailService{
 	
 
@@ -24,12 +22,9 @@ public class MockEmailService extends AbstractEmailService{
 
 	@Override
 	public void sendHtmlEmail(MimeMessage msg) {
-		
-	}
-
-	@Override
-	public void sendOrderConfirmationHtmlEmail(SalaC pedido) {
-		// TODO Auto-generated method stub
+		LOG.info("Simulando envio de email HTML...");
+		LOG.info(msg.toString());
+		LOG.info("Email enviado");
 		
 	}
 
