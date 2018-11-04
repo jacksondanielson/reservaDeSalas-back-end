@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,9 +21,11 @@ public class SalaC implements Serializable{
 	private Integer id;
 	private String descricao;
 	
+	@Column(unique=true)
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm", timezone="America/Sao_Paulo")
 	private Date dataDaReserva;
 	
+	@Column(unique=true)
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm", timezone="America/Sao_Paulo")
 	private Date dataFinalDaReserva;
 	
@@ -158,8 +161,6 @@ public class SalaC implements Serializable{
 		builder.append("\nDetalhes:\n");
 		return builder.toString();
 	}
-	
-	
 
 	
 }

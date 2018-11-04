@@ -2,8 +2,6 @@ package com.jackson.reservadesala.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
-
 import com.jackson.reservadesala.domain.Usuario;
 
 public class UsuarioDTO implements Serializable{
@@ -13,8 +11,6 @@ public class UsuarioDTO implements Serializable{
 	private String nome;
 	private String telefone;
 	private String email;
-	
-	@NotEmpty(message="Preenchimento obrigatorio")
 	private String senha;
 	
 	public UsuarioDTO() {

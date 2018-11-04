@@ -1,6 +1,7 @@
 package com.jackson.reservadesala.recouses;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,10 +36,15 @@ public class SalaCRecouce {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@RequestMapping(value="/dataDaReserva", method=RequestMethod.GET)
+	public ResponseEntity<SalaC> find(@RequestParam(value="value") Date dataDaReserva){
+		SalaC obj = service.findByData(dataDaReserva);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<?> insert(@RequestBody SalaCDTO objDto){
-		SalaC obj = service.fromDto(objDto);
+	public ResponseEntity<?> insert(@Valid @RequestBody SalaC obj){
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -70,6 +76,7 @@ public class SalaCRecouce {
 	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<SalaCDTO>> findPag(
+			@RequestParam(value="descricao", defaultValue="") String nome,
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="descricao") String orderBy,

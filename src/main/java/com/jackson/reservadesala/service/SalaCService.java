@@ -1,5 +1,6 @@
 package com.jackson.reservadesala.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.jackson.reservadesala.domain.SalaC;
 import com.jackson.reservadesala.dto.SalaCDTO;
 import com.jackson.reservadesala.repository.SalaCRepository;
+import com.jackson.reservadesala.service.exception.ObjectNotFoudException;
 
 
 @Service
@@ -28,6 +30,18 @@ public class SalaCService {
 		return obj.orElseThrow(() -> new com.jackson.reservadesala.service.exception.ObjectNotFoudException(
 				"Objeto não encontrado! id: " + id + "Tipo: " + SalaC.class.getName()));
 	}
+	
+	public SalaC findByData(Date dataDaReserva) {
+		SalaC obj = repo.findByDataDaReserva(dataDaReserva);
+		if(obj == null) {
+			throw new ObjectNotFoudException(
+					"Objeto não encontrado! data: " + dataDaReserva + "Tipo: " + SalaC.class.getName());
+			
+		}
+		return obj;
+	}
+
+
 	
 	public SalaC insert(SalaC obj) {
 		obj.setId(null);

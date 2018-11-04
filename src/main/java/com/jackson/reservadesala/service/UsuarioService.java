@@ -42,7 +42,8 @@ public class UsuarioService {
 	
 	public Usuario insert(Usuario obj) {
 		obj.setId(null);
-		return repo.save(obj);
+		obj = repo.save(obj);
+		return obj;
 	}
 	
 	public Usuario update(Usuario obj) {
@@ -59,6 +60,21 @@ public class UsuarioService {
 	public List<Usuario> findAll(){
 		return repo.findAll();
 	}
+	
+	public Usuario findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+	
+		Usuario obj = repo.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoudException(
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Usuario.class.getName());
+		}
+		return obj;
+	}
+	
 	
 	public Usuario fromDto(UsuarioDTO objDto) {
 		return new Usuario(objDto.getId(), objDto.getNome(), objDto.getTelefone(), objDto.getEmail(), pe.encode(objDto.getSenha()));
