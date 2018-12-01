@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.jackson.reservadesala.service.DBService;
 import com.jackson.reservadesala.service.EmailService;
-import com.jackson.reservadesala.service.SmtpEmailService;
+import com.jackson.reservadesala.service.MockEmailService;
 
 @Configuration
 @Profile("dev")
@@ -28,7 +28,7 @@ public class DevConfig {
 	
 	@Bean
 	public EmailService emailService() {
-		return new SmtpEmailService();
+		return new MockEmailService();
 	}
-
+	
 }
